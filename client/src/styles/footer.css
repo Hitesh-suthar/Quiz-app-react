@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+footer .links,
+footer .contacts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0;
+}
+
+footer .links .pages {
+    list-style: none;
+    display: inline-block;
+    padding: 12px;
+    cursor: pointer;
+
+}
+
+footer .links .pages a {
+    color: rgb(0, 0, 0);
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 20px;
+    text-decoration: none;
+    text-shadow: 0px 0px 10px rgb(255, 255, 255);
+    font-weight: 900;
+}
+
+footer .links .pages:hover,
+footer .contact a img:hover {
+    transform: scale(1.2);
+}
+
+footer {
+    width: 100%;
+    background: black;
+    height: auto;
+}
+
+footer .text {
+    text-align: center;
+}
+
+footer .text h2 {
+    margin: 0px;
+    padding-top: 30px;
+    font-size: 25px;
+    color: aliceblue;
+}
+
+footer .email a {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    color: rgb(255, 126, 27);
+    font-size: 25px;
+    font-family: 'Ubuntu', sans-serif;
+    padding: 8px;
+}
+
+footer .contact {
+    padding: 10px 20px 0px 20px;
+}
+
+footer .contact a img {
+    width: 30px;
+}
+
+footer .footer-links .pages a {
+    color: rgb(202, 202, 202);
+    font-size: 12px;
+    text-shadow: none;
+}
+
+footer .copyright {
+    font-family: 'Ubuntu', sans-serif;
+    text-align: center;
+    color: rgb(181, 181, 181);
+    padding: 20px 0px;
+    font-size: 14px;
+}
