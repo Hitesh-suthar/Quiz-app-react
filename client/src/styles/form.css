@@ -1,0 +1,115 @@
+.inner-container {
+    width: 90%;
+    max-width: 900px;
+    border-radius: 20px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    background-color: lightsteelblue;
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.form-container,
+.image-container,
+.content-container,
+.question-container {
+    width: 100%;
+    max-width: 450px;
+    color: darkblue;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+}
+
+.image-container img {
+    width: 100%;
+    aspect-ratio: 1/1;
+}
+
+.content-container {
+    text-align: center;
+}
+
+.heading {
+    text-align: center;
+    font-size: 42px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    margin: 30px;
+}
+
+label {
+    margin: 8px 0;
+    padding-left: 8px;
+}
+
+input,
+textarea {
+    width: 100%;
+    height: 42px;
+    margin-bottom: 16px;
+    background-color: aliceblue;
+    border: none;
+    border-radius: 50px;
+    color: darkblue;
+    font-size: 16px;
+    padding-left: 16px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: none;
+    height: 150px;
+    border-radius: 30px;
+    padding: 12px;
+}
+
+input[type='password'] {
+    margin-bottom: 0px;
+}
+
+input[type='submit'] {
+    margin-top: 24px;
+    background-color: darkblue;
+    color: aliceblue;
+    font: 16px;
+}
+
+input[type='submit']:enabled:hover {
+    cursor: pointer;
+    background-color: crimson;
+}
+
+.warning-message {
+    color: crimson;
+    padding-left: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    visibility: hidden;
+}
+
+.signup-link,
+.login-link {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.error-message {
+    color: crimson;
+    font-size: 32px;
+}
+
+.pnf {
+    font-size: 42px;
+}
