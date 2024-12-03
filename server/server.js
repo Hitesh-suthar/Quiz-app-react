@@ -4,10 +4,11 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoute');
 const quizRoutes = require('./routes/quizRoutes');
 const cookieParser = require("cookie-parser");
+dotenv.config();
 const app = express();
 
 //database connection
-const url = "mongodb://127.0.0.1:27017/quiz";
+const url = process.env.MONGODB_URL;
 mongoose.connect(url)
   .then(()=>console.log("Mongodb connected"))
   .catch((err)=>console.log(err));
