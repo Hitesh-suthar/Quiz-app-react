@@ -60,19 +60,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 #profile-initial {
     margin-left: 0;
     width: 35px;
     height: 35px;
-    background-color: darkblue;
-    color: aliceblue;
     border-radius: 50%;
-    cursor: pointer;
-    font-size: 24px;
-    text-align: center;
     transition: all 0.1s ease;
+}
+
+#profile-img{
+    width: 100%;
+    height: 100%;
 }
 
 #user-display-name{
@@ -83,7 +84,6 @@
 
 #profile-initial:hover {
     scale: 1.1;
-    background-color: crimson;
 }
 
 .user-profile .list-menu {

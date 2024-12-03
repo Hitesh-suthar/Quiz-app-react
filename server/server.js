@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require('mongoose');
-const routes = require('./routes/userRoute');
+const userRoutes = require('./routes/userRoute');
+const quizRoutes = require('./routes/quizRoutes');
 const cookieParser = require("cookie-parser");
 const app = express();
 
@@ -15,18 +16,11 @@ mongoose.connect(url)
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cookieParser);
+app.use(cookieParser());
 
 //Routes
-app.use("/api",routes);
-
-// async function getQuestions(data){
-//     const URL = `https://opentdb.com/api.php?amount=10&category=${data.category}&difficulty=${data.difficulty}&type=multiple`
-//     let res = await fetch(URL)
-//     let questions = await res.json()
-//     return questions
-// }
-
+app.use("/api",userRoutes);
+app.use("/api",quizRoutes);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

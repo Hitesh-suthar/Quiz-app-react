@@ -1,31 +1,54 @@
-import React, { useState , useContext } from 'react';
+import React, { useState , useContext ,useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import {userStateProvider,initialUserState} from './../App'
+import {userStateProvider} from './../App'
+import profile from '../assets/profile.png'
 
 const Userprofile = () => {
     
-    const userState = useContext(userStateProvider)
+    const {userState , setUserState} = useContext(userStateProvider)
     const [menuHidden, setMenuHidden] = useState(true);
 
     const toggleMenu = () => {
         setMenuHidden(!menuHidden);
     };
 
+    const handleClickOutside = (event) => {
+        const menu = document.getElementById("menu");
+        const toggleButton = document.getElementById("toggleMenu");
+        if (!menu.contains(event.target) && !toggleButton.contains(event.target)) {
+          setMenuHidden(true);
+        }
+      };
+    
+    useEffect(() => {
+        document.addEventListener("click", handleClickOutside);
+        return () => {
+          document.removeEventListener("click", handleClickOutside);
+        };
+    }, []);
+
     const logout = () => {
-        userState.dispatch({ type: 'complete', value: initialUserState })
-	    localStorage.setItem('user' , JSON.stringify(initialUserState))
+        setUserState({ type: 'logout'})
+        try {
+			let options = {
+				method: "POST",
+			};
+			fetch("/api/logout", options)
+		} catch (err) {
+			console.log(err);
+		}
     }
 
     return (
         <>
-            <div className='user-profile'>
-                <p id='profile-initial' onClick={toggleMenu}>{
-                    userState.state.isUserLoggedIn === true ? userState.state.name[0] : '?'
-                }</p>
-                <p id='user-display-name'>{`${userState.state.name}`}</p>
+            <div id='toggleMenu' className='user-profile' onClick={toggleMenu}>
+                <p id='profile-initial' >
+                    <img id='profile-img' src={profile} alt="" />
+                </p>
+                <p id='user-display-name'>{userState?(`${userState.name}`).toUpperCase():"My Friend"}</p>
             </div>
-            <ul className={`list-menu ${menuHidden ? 'hidden' : ''}`}>
-                {userState.state.isUserLoggedIn === true ? (
+            <ul id='menu' className={`list-menu ${menuHidden ? 'hidden' : ''}`}>
+                {userState? (
                     <>
                         <Link to="/" className='link'><li className='list-menu-item' onClick={() => {
                             toggleMenu();

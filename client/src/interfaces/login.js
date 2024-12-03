@@ -4,18 +4,17 @@ import './../styles/form.css'
 import loginSVG from './../assets/Login.svg'
 import { userStateProvider } from '../App'
 
-export const login = (userState , newState) => {
-	userState.dispatch({ type: 'complete', value: newState })
-	localStorage.setItem('user' , JSON.stringify(newState))
+export const login = (setUserState , newState) => {
+	setUserState({ type: 'login', value: newState })
 }
 
 const Login = () => {
 	const navigate = useNavigate()
-	const userState = useContext(userStateProvider)
+	const {userState,setUserState} = useContext(userStateProvider)
 
 	useEffect(()=>{
-		if(userState.state.isUserLoggedIn) navigate('/error')
-	})
+		if(userState) navigate('/home')
+	},[navigate, userState])
 
 	let handleSubmit = async (e) => {
 		e.preventDefault();
@@ -33,8 +32,8 @@ const Login = () => {
 			fetch("/api/login", options)
 				.then(res => res.json())
 				.then(res => {
-					if (res.status) {
-			            login(userState , res.data);   
+					if (res.user) {
+			            login(setUserState , res.user);   
 						navigate('/')
 					}
 					else {
@@ -42,7 +41,6 @@ const Login = () => {
 						document.getElementById("wm4").style.visibility = 'visible'
 						document.getElementById('form').reset()
 					}
-					console.log(res)
 				})
 		} catch (err) {
 			console.log(err);

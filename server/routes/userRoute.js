@@ -1,16 +1,15 @@
 const express = require("express");
 const router = express.Router();
+const {verifyUserToken} = require('../auth/token')
 
-
-const { userLogin, userSignUp, userUpdate, userDelete } = require('../handlers/userHandlers');
+const { userLogin, userSignUp, userLogout} = require('../handlers/userHandlers');
 
 router.post("/login", userLogin);
 
 router.post("/signup", userSignUp);
 
-router.patch("/update", userUpdate);
+router.post("/logout", userLogout);
 
-router.delete("/delete", userDelete);
-
+router.post("/verify", verifyUserToken)
 
 module.exports = router;

@@ -5,7 +5,7 @@ import loadingSVG from './../assets/loading.svg'
 import './../styles/quiz.css'
 
 const Quiz = () => {
-    const userState = useContext(userStateProvider)
+    const {userState }= useContext(userStateProvider)
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -17,37 +17,29 @@ const Quiz = () => {
     const [isSubmitted, setIsSubmitted] = useState(false)
 
     useEffect(() => {
-        if (!userState.state.isUserLoggedIn) navigate('/login')
-    },[userState.state.isUserLoggedIn , navigate])
+        if (!userState) navigate('/login')
+    },[userState, navigate])
 
     useEffect(() => {
-        try {
-            let options = {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    difficulty: location.state.difficulty,
-                    category: location.state.category
-                })
+        const fetchQuestions = async () => {
+            const options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ difficulty: location.state.difficulty, category: location.state.category }),
             };
-            fetch("/quiz", options)
-                .then(res => res.json())
-                .then(res => {
-                    if (res.status) {
-                        setQuestions(processData(res.questions))
-                        setIsLoading(false)
-                    }
-                    else {
-                        console.log(res.message)
-                    }
-                })
-        } catch (err) {
-            console.log(err);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    
+            const response = await fetch('/api/quiz', options);
+            const res = await response.json();
+            if (res.status) {
+                setQuestions(res.questions);
+                setIsLoading(false);
+            } else {
+                console.log(res.message);
+            }
+        };
+    
+        fetchQuestions();
+    }, [location.state.difficulty, location.state.category]);
 
     useEffect(()=>{
         if(!isSubmitted){
@@ -130,25 +122,6 @@ const Quiz = () => {
 
     function setAnswer(e){
         setSelectedAnswer({...selectedAnswer , [index] :Number(e.target.value)})
-    }
-
-    function processData(data){
-        return data.results.map(item => {
-            let correctOption = Math.floor(Math.random() * 4)
-            let options = item.incorrect_answers.map(ele=>decodeStr(ele))
-            options.splice(correctOption , 0 , item.correct_answer)
-            return {
-                question : decodeStr(item.question),
-                options : options,
-                correctOption : correctOption
-            }
-        })
-    }
-
-    function decodeStr(str){
-        var txt = document.createElement("textarea");
-        txt.innerHTML = str;
-        return txt.innerText;
     }
 
     return (

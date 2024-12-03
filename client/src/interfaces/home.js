@@ -4,14 +4,14 @@ import './../styles/home.css'
 import { userStateProvider } from '../App'
 
 const Home = () => {
-	const {state} = useContext(userStateProvider)
+	const {userState} = useContext(userStateProvider)
 	return (
 		<div className='container'>
 			<div className='welcome'>
 				<p>Welcome to QUIZ</p>
-				<p id='name'>{`${state.name}`} </p>
+				<p id='name'>{userState?(`${userState.name}`).toUpperCase():"My Friend"} </p>
 			</div>
-			<div className='intro'>Welcome to our online quiz app, where knowledge meets fun!<br/>Challenge your intellect and expand your horizons with a wide array of quizzes on various topics.<br /> From general knowledge to specific interests, we have something for everyone.<br /> Join us now!</div>
+			<div className='intro'>Challenge your intellect and expand your horizons with a wide array of quizzes on various topics.</div>
 			<div className='start-btn'>
 				<Link to="/preference"><button>Start Quiz</button></Link>
 			</div>

@@ -8,8 +8,13 @@ async function userLogin(req, res) {
         let user = await User.findOne({ email });
         if (!user) res.send({ message: 'User not found' });
         else if (await verifyPassword(password, user.password)) {
-
-            res.status(200).send(user);
+            const token = await generateUserToken({ name:user.name, email })
+            res.cookie('jwt', token, {
+                httpOnly: true, // Prevent access from client-side scripts
+                secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+                sameSite: 'strict', // Prevent CSRF attacks
+            });
+            res.status(200).send({message:"Login successfull" , user : {name:user.name,email}});
         }
         else {
             res.send({ message: 'Incorrect password' });
@@ -34,8 +39,18 @@ async function userSignUp(req, res) {
                 password
             })
             newUser.save();
+            const token = await generateUserToken({ name, email })
+            res.cookie('jwt', token, {
+                httpOnly: true, // Prevent access from client-side scripts
+                secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+                sameSite: 'strict', // Prevent CSRF attacks
+            });
+
             console.log('User created successfully');
-            res.send({ message: 'Registration successfull. Login now' });
+            res.send({
+                message: 'Registration successfull',
+                user : {name,email}
+            });
         }
     }
     catch (err) {
@@ -44,18 +59,13 @@ async function userSignUp(req, res) {
     }
 }
 
-async function userUpdate(req, res) {
-
+async function userLogout(req,res){
+    res.clearCookie('jwt')
+    res.send({message:"Logout successfull"} );
 }
-
-async function userDelete(req, res) {
-
-}
-
 
 module.exports = {
     userLogin,
     userSignUp,
-    userUpdate,
-    userDelete
+    userLogout
 }

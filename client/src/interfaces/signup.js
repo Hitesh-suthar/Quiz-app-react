@@ -8,11 +8,11 @@ import { userStateProvider } from '../App'
 const Signup = () => {
 
     const navigate = useNavigate();
-    const userState = useContext(userStateProvider)
+	const {userState ,setUserState} = useContext(userStateProvider)
 
     useEffect(()=>{
-		if(userState.state.isUserLoggedIn) navigate('/error')
-	})
+		if(userState) navigate('/home')
+	},[navigate, userState])
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -32,8 +32,8 @@ const Signup = () => {
             fetch("/api/signup", options)
                 .then(res => res.json())
                 .then(res => {
-                    if (res.status) {
-                        login(userState , res.data)
+                    if (res.user) {
+                        login(setUserState , res.user)
                         navigate('/')
                     }
                     else {

@@ -16,7 +16,7 @@ const Contact = () => {
                     message:  document.getElementById('textarea').value,
                 })
             };
-            fetch("/contact", options)
+            fetch("/api/contact", options)
                 .then(res => res.json())
                 .then(res => {
                     if (res.status) {
