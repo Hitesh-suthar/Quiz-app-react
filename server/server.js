@@ -16,7 +16,7 @@ mongoose.connect(url)
 
 // Middleware
 const corsOptions = {
-  origin: "http://localhost:3000"
+  origin: "https://quiz-app-react-tl3q.onrender.com"
 }
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
