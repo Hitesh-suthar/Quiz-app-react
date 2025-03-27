@@ -28,7 +28,7 @@ const Quiz = () => {
                 body: JSON.stringify({ difficulty: location.state.difficulty, category: location.state.category }),
             };
     
-            const response = await fetch('/api/quiz', options);
+            const response = await fetch('https://quiz-app-ymde.onrender.com/api/quiz', options);
             const res = await response.json();
             if (res.status) {
                 setQuestions(res.questions);

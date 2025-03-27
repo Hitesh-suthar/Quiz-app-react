@@ -29,7 +29,7 @@ const Signup = () => {
                     password2: document.getElementById('password2').value
                 })
             };
-            fetch("/api/signup", options)
+            fetch("https://quiz-app-ymde.onrender.com/api/signup", options)
                 .then(res => res.json())
                 .then(res => {
                     if (res.user) {

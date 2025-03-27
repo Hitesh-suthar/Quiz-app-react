@@ -32,7 +32,7 @@ function App() {
 
 	useEffect(() => {
 		window.addEventListener('load', async () => {
-			const res = await fetch('/api/verify', {
+			const res = await fetch('https://quiz-app-ymde.onrender.com/api/verify', {
 				method: "POST",
 				headers: {
 					'Content-Type': 'application/json'

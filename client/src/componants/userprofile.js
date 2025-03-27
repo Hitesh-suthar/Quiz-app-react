@@ -33,7 +33,7 @@ const Userprofile = () => {
 			let options = {
 				method: "POST",
 			};
-			fetch("/api/logout", options)
+			fetch("https://quiz-app-ymde.onrender.com/api/logout", options)
 		} catch (err) {
 			console.log(err);
 		}

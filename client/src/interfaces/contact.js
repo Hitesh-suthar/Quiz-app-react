@@ -16,7 +16,7 @@ const Contact = () => {
                     message:  document.getElementById('textarea').value,
                 })
             };
-            fetch("/api/contact", options)
+            fetch("https://quiz-app-ymde.onrender.com/api/contact", options)
                 .then(res => res.json())
                 .then(res => {
                     if (res.status) {
